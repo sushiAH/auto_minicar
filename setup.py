@@ -31,6 +31,7 @@ setup(
         "console_scripts": [
             "twist_subscriber = auto_minicar.subscribe_twist:main",
             "odom_publisher = auto_minicar.publish_odom:main",
+            "spline_path_generator = auto_minicar.follow_spline:main",
         ],
     },
 )

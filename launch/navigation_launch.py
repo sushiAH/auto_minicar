@@ -24,7 +24,7 @@ def generate_launch_description():
 
     package_dir = get_package_share_directory("auto_minicar")
 
-    map_file_path = "/home/aratahorie/auto_minicar/src/auto_minicar/map/map.yaml"
+    map_file_path = "/home/aratahorie/auto_minicar/src/auto_minicar/map/map_tamoku.yaml"
 
     # 2. Nav2の設定ファイル
     nav2_params_path = (
@@ -71,7 +71,7 @@ def generate_launch_description():
         output="screen",
         arguments=[
             "0.0",
-            "0.125",
+            "0.215",
             "0.0",
             "-1.5708",
             "0.0",
@@ -87,7 +87,7 @@ def generate_launch_description():
         output="screen",
         arguments=[
             "0.0",
-            "-0.125",
+            "-0.215",
             "0.0",
             "1.5708",
             "0.0",

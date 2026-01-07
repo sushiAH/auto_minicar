@@ -11,6 +11,7 @@ pc to scan
 """
 
 import os
+
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, GroupAction
@@ -73,7 +74,7 @@ def generate_launch_description():
         output="screen",
         arguments=[
             "0.0",
-            "0.125",
+            "0.215",
             "0.0",
             "-1.5708",
             "0.0",
@@ -89,7 +90,7 @@ def generate_launch_description():
         output="screen",
         arguments=[
             "0.0",
-            "-0.125",
+            "-0.215",
             "0.0",
             "1.5708",
             "0.0",
@@ -154,7 +155,7 @@ def generate_launch_description():
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(lidar_a3_launch_file_path),
                 launch_arguments={
-                    "serial_port": "/dev/ttyUSB0",
+                    "serial_port": "/dev/ttyUSB2",
                     "serial_baudrate": "256000",  # A3の標準
                     "frame_id": "laser_a3",
                     "scan_mode": "Sensitivity",  # 10Hz(同期用)

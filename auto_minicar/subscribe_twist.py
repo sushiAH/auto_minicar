@@ -1,5 +1,6 @@
 """twistを受け取って、dynamixelモーターに指示値を送信する。
 dynamixelモーターからfeedbackデータを受け取って、DynaFeedbackメッセージをpublishする
+
 """
 
 import rclpy
@@ -13,6 +14,10 @@ from geometry_msgs.msg import TransformStamped, Twist
 from tf2_ros import TransformBroadcaster
 from nav_msgs.msg import Odometry
 from my_robot_interfaces.msg import DynaFeedback
+import atexit
+
+
+SERIAL_DEVICE_NAME = "/dev/ttyUSB3"
 
 
 class twist_subscriber(Node):
@@ -21,7 +26,7 @@ class twist_subscriber(Node):
 
         self.subscription_twist_joy = self.create_subscription(
             Twist,  # メッセージの型
-            "/cmd_vel",  # 購読するトピック名
+            "/cmd_vel_joy",  # 購読するトピック名
             self.twist_by_joy_callback,  # 呼び出すコールバック関数
             10,
         )
@@ -45,8 +50,8 @@ class twist_subscriber(Node):
         )
 
         # robot_params
-        self.track_width = 0.325  # [m]
-        self.wheel_radius = 0.025  # [m]
+        self.track_width = 0.285  # [m]
+        self.wheel_radius = 0.041  # [m]
 
         self.joy_straight = 0
         self.joy_w = 0
@@ -55,8 +60,9 @@ class twist_subscriber(Node):
         self.dyna_vel_gain = (0.229 * 2.0 * math.pi * self.wheel_radius) / 60.0
 
         # initialize dynamixel
-        self.dxl_1 = dxl_controller("/dev/ttyUSB2", 0, 1)
-        self.dxl_2 = dxl_controller("/dev/ttyUSB2", 1, 1)
+        # 差動二輪
+        self.dxl_1 = dxl_controller(SERIAL_DEVICE_NAME, 0, 1)
+        self.dxl_2 = dxl_controller(SERIAL_DEVICE_NAME, 1, 1)
 
     def twist_by_joy_callback(self, msg):
         """Joy topicをsubscribeする
